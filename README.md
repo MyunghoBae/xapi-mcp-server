@@ -28,6 +28,7 @@
 ## 🚀 QuickStart
 
 ### Prerequisites
+
 - Node.js v18 or later
 - MongoDB 4.4+ (for MongoDB adapter)
 - Basic understanding of xAPI specification
@@ -38,14 +39,12 @@ First, install the xAPI MCP server with your client. A typical configuration loo
 
 ```json
 {
-  "mcpServers": {
-    "xAPI": {
-      "command": "npx",
-      "args": [
-        "xapi-mcp-server@latest"
-      ]
-    }
-  }
+	"mcpServers": {
+		"xAPI": {
+			"command": "npx",
+			"args": ["xapi-mcp-server@latest"]
+		}
+	}
 }
 ```
 
@@ -58,6 +57,7 @@ code --add-mcp '{"name":"xAPI","command":"npx","args":["xapi-mcp-server@latest"]
 ```
 
 After installation, the xAPI MCP server will be available for use with your GitHub Copilot agent in VS Code.
+
 </details>
 
 <details><summary><b>Install in Cursor</b></summary>
@@ -65,14 +65,12 @@ Go to Cursor Settings -> MCP -> Add new MCP Server. Use following configuration:
 
 ```json
 {
-  "mcpServers": {
-    "xAPI": {
-      "command": "npx",
-      "args": [
-        "xapi-mcp-server@latest"
-      ]
-    }
-  }
+	"mcpServers": {
+		"xAPI": {
+			"command": "npx",
+			"args": ["xapi-mcp-server@latest"]
+		}
+	}
 }
 ```
 
@@ -84,14 +82,12 @@ Follow Windsuff MCP documentation. Use following configuration:
 
 ```json
 {
-  "mcpServers": {
-    "xAPI": {
-      "command": "npx",
-      "args": [
-        "xapi-mcp-server@latest"
-      ]
-    }
-  }
+	"mcpServers": {
+		"xAPI": {
+			"command": "npx",
+			"args": ["xapi-mcp-server@latest"]
+		}
+	}
 }
 ```
 
@@ -103,14 +99,12 @@ Follow the MCP install guide, use following configuration:
 
 ```json
 {
-  "mcpServers": {
-    "xAPI": {
-      "command": "npx",
-      "args": [
-        "xapi-mcp-server@latest"
-      ]
-    }
-  }
+	"mcpServers": {
+		"xAPI": {
+			"command": "npx",
+			"args": ["xapi-mcp-server@latest"]
+		}
+	}
 }
 ```
 
@@ -132,11 +126,11 @@ Then in MCP client config, set the url to the SSE endpoint:
 
 ```json
 {
-  "mcpServers": {
-    "xAPI": {
-      "url": "http://localhost:8931/sse"
-    }
-  }
+	"mcpServers": {
+		"xAPI": {
+			"url": "http://localhost:8931/sse"
+		}
+	}
 }
 ```
 
@@ -145,47 +139,43 @@ Then in MCP client config, set the url to the SSE endpoint:
 NOTE: Make sure to properly configure MongoDB access when using Docker.
 
 Basic docker configuration:
+
 ```json
 {
-  "mcpServers": {
-    "xAPI": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "--init",
-        "--pull=always",
-        "xapi-mcp-server:latest"
-      ]
-    }
-  }
+	"mcpServers": {
+		"xAPI": {
+			"command": "docker",
+			"args": ["run", "-i", "--rm", "--init", "--pull=always", "xapi-mcp-server:latest"]
+		}
+	}
 }
 ```
 
 With MongoDB configuration:
+
 ```json
 {
-  "mcpServers": {
-    "xAPI": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "--init",
-        "-e",
-        "XAPI_MCP_MONGO_URI=mongodb://mongo:27017",
-        "-e",
-        "XAPI_MCP_DATABASES_CONFIG={\"learning\":{\"collections\":[\"statements\"]}}",
-        "xapi-mcp-server:latest"
-      ]
-    }
-  }
+	"mcpServers": {
+		"xAPI": {
+			"command": "docker",
+			"args": [
+				"run",
+				"-i",
+				"--rm",
+				"--init",
+				"-e",
+				"XAPI_MCP_MONGO_URI=mongodb://mongo:27017",
+				"-e",
+				"XAPI_MCP_DATABASES_CONFIG={\"learning\":{\"collections\":[\"statements\"]}}",
+				"xapi-mcp-server:latest"
+			]
+		}
+	}
 }
 ```
 
 Build your own Docker image:
+
 ```bash
 docker build -t xapi-mcp-server .
 ```
@@ -202,24 +192,24 @@ import { createConnection } from 'xapi-mcp-server';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 
 http.createServer(async (req, res) => {
-  // Create MCP server connection
-  const connection = await createConnection({
-    datasource: {
-      type: "mongodb",
-      connection: {
-        uri: "mongodb://localhost:27017",
-        databases: {
-          learning: {
-            collections: ["statements"]
-          }
-        }
-      }
-    }
-  });
+	// Create MCP server connection
+	const connection = await createConnection({
+		datasource: {
+			type: 'mongodb',
+			connection: {
+				uri: 'mongodb://localhost:27017',
+				databases: {
+					learning: {
+						collections: ['statements'],
+					},
+				},
+			},
+		},
+	});
 
-  // Setup SSE transport
-  const transport = new SSEServerTransport('/messages', res);
-  await connection.connect(transport);
+	// Setup SSE transport
+	const transport = new SSEServerTransport('/messages', res);
+	await connection.connect(transport);
 });
 ```
 
@@ -286,22 +276,26 @@ npx xapi-mcp-server@latest --config path/to/config.json
   }
 }
 ```
+
 </details>
 
 ## 🛠️ Tools
 
 ### Data Management Tools
+
 - `list-collections` - Find xAPI data collections from connected data sources
 - `collection-schema` - Get schema information for a specified collection
 - `insert-one` - Insert a single xAPI statement into a collection
 - `insert-many` - Insert multiple xAPI statements into a collection
 
 ### Query Tools
+
 - `find` - Query xAPI statements with filtering and options
 - `aggregate` - Run aggregation pipelines on xAPI data
 - `count` - Get the count of statements matching a query
 
 ### Analysis Tools
+
 - `analyze-pattern` - Analyze learning patterns from xAPI statements
 - `get-progress` - Get learning progress metrics for a user
 - `get-summary` - Generate summary of learning activities
@@ -310,6 +304,7 @@ npx xapi-mcp-server@latest --config path/to/config.json
 - `detect-trend` - Identify trends in learning behavior
 
 ### Context Generation Tools
+
 - `build-context` - Build context from xAPI statements for LLM
 - `filter-relevant` - Filter relevant xAPI data for current context
 - `summarize-activities` - Create summary of activities for context
