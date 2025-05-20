@@ -1,0 +1,28 @@
+{
+  "name": "xapi-mcp-server",
+  "description": "xAPI Model Context Protocol Server",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "author": "MyunghoBae <mac.bae@goorm.io>",
+  "homepage": "https://github.com/MyunghoBae/xapi-mcp-server",
+  "repository": {
+    "url": "https://github.com/MyunghoBae/xapi-mcp-server.git"
+  },
+  "bin": {
+    "xapi-mcp-server": "dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "scripts": {
+  },
+  "license": "MIT",
+  "devDependencies": {
+  },
+  "dependencies": {
+  },
+  "engines": {
+    "node": ">=18.19.0"
+  }
+}
